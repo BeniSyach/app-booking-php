@@ -2,8 +2,16 @@
 
 <?php
 // CHECK AND ADD LANGUAGE CODE TO DIR
-if (isset($_SESSION['phptravels_client_language_dir'])){ $lang_dir = $_SESSION['phptravels_client_language_dir'];
-} else { foreach (app()->languages as $lang){ if($lang->default == 1){ $lang_dir = strtolower($lang->type); $_SESSION['defual_lang'] = $lang->name; } } }
+if (isset($_SESSION['phptravels_client_language_dir'])) {
+    $lang_dir = $_SESSION['phptravels_client_language_dir'];
+} else {
+    foreach (app()->languages as $lang) {
+        if ($lang->default == 1) {
+            $lang_dir = strtolower($lang->type);
+            $_SESSION['defual_lang'] = $lang->name;
+        }
+    }
+}
 
 require_once  "credentials.php";
 
@@ -14,55 +22,61 @@ $module_status = array_intersect_key($modules, $temp_module);
 
 ?>
 
-<html lang="en" dir="<?=$lang_dir?>">
+<html lang="en" dir="<?= $lang_dir ?>">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
-    <title><?php if (isset($meta['title'])){echo $meta['title'];}?></title>
-    <link rel="stylesheet" type="text/css" href="<?=root?>assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="<?=root?>assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="<?=root?>assets/css/theme.css">
+    <title><?php if (isset($meta['title'])) {
+                echo $meta['title'];
+            } ?></title>
+    <link rel="stylesheet" type="text/css" href="<?= root ?>assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= root ?>assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?= root ?>assets/css/theme.css">
 
-    <?php if (isset($_SESSION['theme'])){?>
-    <link rel="stylesheet" type="text/css" href="<?=root?>assets/css/themes/<?=$_SESSION['theme']?>.css">
+    <?php if (isset($_SESSION['theme'])) { ?>
+        <link rel="stylesheet" type="text/css" href="<?= root ?>assets/css/themes/<?= $_SESSION['theme'] ?>.css">
     <?php } ?>
 
     <!-- THEME -->
-    <link rel="stylesheet" type="text/css" href="<?=root?>assets/css/themes/<?=(base()->app->theme_name)?>.css">
+    <link rel="stylesheet" type="text/css" href="<?= root ?>assets/css/themes/<?= (base()->app->theme_name) ?>.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="<?=root?>uploads/global/favicon.png">
+    <link rel="shortcut icon" href="<?= root ?>uploads/global/favicon.png">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" crossorigin="anonymous"></script>
-    <script src="<?=root?>assets/js/select2.js"></script>
+    <script src="<?= root ?>assets/js/select2.js"></script>
 
-    <?php 
-    if (($lang_dir)=="RTL") { ?>
-    <!-- RTL CSS  -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
-    <link rel="stylesheet" type="text/css" href="<?=root?>assets/css/rtl.css">
+    <?php
+    if (($lang_dir) == "RTL") { ?>
+        <!-- RTL CSS  -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
+        <link rel="stylesheet" type="text/css" href="<?= root ?>assets/css/rtl.css">
     <?php } ?>
 
     <!-- YOUR JS CODE GOES HERE -->
     <?php
-    echo(base()->app->javascript);
+    echo (base()->app->javascript);
     // echo ("\n");
     ?>
 </head>
 
 <body id="fadein">
 
-<div class="bodyload">
-    <div class="rotatingDiv"></div>
-</div>
+    <div class="bodyload">
+        <div class="rotatingDiv"></div>
+    </div>
 
-<!-- THEME PRIMARY COLOR -->
-<style>:root {--theme-bg: <?=base()->app->default_theme?>}</style>
+    <!-- THEME PRIMARY COLOR -->
+    <style>
+        :root {
+            --theme-bg: <?= base()->app->default_theme ?>
+        }
+    </style>
 
-<?php 
-require_once "App/Views/DemoContent.php";
-?>
+    <?php
+    require_once "App/Views/DemoContent.php";
+    ?>
     <header class="navbar fixed-top navbar-expand-lg p-lg-0">
 
         <div class="container">
@@ -71,8 +85,8 @@ require_once "App/Views/DemoContent.php";
 
                 <!-- <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="display: block; fill: none; height: 16px; width: 16px; stroke: currentcolor; stroke-width: 3; overflow: visible;"><g fill="none" fill-rule="nonzero"><path d="m2 16h28"></path><path d="m2 24h28"></path><path d="m2 8h28"></path></g></svg> -->
 
-                <a href="<?=root?>" class="fadeout navbar-brand m-0 p-0 rounded-3">
-                    <img class="logo p-1 rounded" style="max-width: 140px;max-height: 50px;" src="<?=root?>uploads/global/logo.png" alt="logo">
+                <a href="<?= root ?>" class="fadeout navbar-brand m-0 p-0 rounded-3">
+                    <img class="logo p-1 rounded" style="max-width: 140px;max-height: 50px;" src="<?= root ?>uploads/global/logo.png" alt="logo">
                 </a>
             </div>
 
@@ -85,177 +99,229 @@ require_once "App/Views/DemoContent.php";
 
             <!-- nav items  -->
             <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-                
+
                 <!-- left  -->
                 <div class="nav-item--left ms-lg-5">
-                    
+
                     <ul class="header_menu navbar-nav">
-                        
-                        <?php 
+
+                        <?php
                         $keys = array_column($module_status, 'order');
                         array_multisort($keys, SORT_ASC, $module_status);
-                        foreach ($module_status as $module){
+                        foreach ($module_status as $module) {
                         ?>
 
-                        <?php if (isset($module->type)){ if ($module->type == "hotels"){ ?>
-                        <li> <a class="nav-link fadeout <?php if(isset($meta['nav_menu'])){ if ($meta['nav_menu']=="hotels" || $meta['nav_menu']=="hotel"){ echo "active";} } ?>"
-                                href="<?=root?>hotels"><?=T::hotels?></a></li>
-                        <?php } } ?>
+                            <?php if (isset($module->type)) {
+                                if ($module->type == "hotels") { ?>
+                                    <li> <a class="nav-link fadeout <?php if (isset($meta['nav_menu'])) {
+                                                                        if ($meta['nav_menu'] == "hotels" || $meta['nav_menu'] == "hotel") {
+                                                                            echo "active";
+                                                                        }
+                                                                    } ?>"
+                                            href="<?= root ?>hotels"><?= T::hotels ?></a></li>
+                            <?php }
+                            } ?>
 
-                        <?php if (isset($module->type)){ if ($module->type == "flights"){ ?>
-                        <li> <a class="nav-link fadeout <?php if(isset($meta['nav_menu'])){ if ($meta['nav_menu']=="flights"){ echo "active";} } ?>"
-                                href="<?=root?>flights"><?=T::flights?></a></li>
-                        <?php } } ?>
+                            <?php if (isset($module->type)) {
+                                if ($module->type == "flights") { ?>
+                                    <li> <a class="nav-link fadeout <?php if (isset($meta['nav_menu'])) {
+                                                                        if ($meta['nav_menu'] == "flights") {
+                                                                            echo "active";
+                                                                        }
+                                                                    } ?>"
+                                            href="<?= root ?>flights"><?= T::flights ?></a></li>
+                            <?php }
+                            } ?>
 
-                        <?php if (isset($module->type)){ if ($module->type == "tours"){ ?>
-                        <li> <a class="nav-link fadeout <?php if(isset($meta['nav_menu'])){ if ($meta['nav_menu']=="tours" || $meta['nav_menu']=="tour"){ echo "active";} } ?>"
-                                href="<?=root?>tours"><?=T::tours?></a></li>
-                        <?php } } ?>
+                            <?php if (isset($module->type)) {
+                                if ($module->type == "tours") { ?>
+                                    <li> <a class="nav-link fadeout <?php if (isset($meta['nav_menu'])) {
+                                                                        if ($meta['nav_menu'] == "tours" || $meta['nav_menu'] == "tour") {
+                                                                            echo "active";
+                                                                        }
+                                                                    } ?>"
+                                            href="<?= root ?>tours"><?= T::tours ?></a></li>
+                            <?php }
+                            } ?>
 
-                        <?php if (isset($module->type)){ if ($module->type == "cars"){ ?>
-                        <li> <a class="nav-link fadeout <?php if(isset($meta['nav_menu'])){ if ($meta['nav_menu']=="cars"){ echo "active";} } ?>"
-                                href="<?=root?>cars"><?=T::cars?></a></li>
-                        <?php } } ?>
+                            <?php if (isset($module->type)) {
+                                if ($module->type == "cars") { ?>
+                                    <li> <a class="nav-link fadeout <?php if (isset($meta['nav_menu'])) {
+                                                                        if ($meta['nav_menu'] == "cars") {
+                                                                            echo "active";
+                                                                        }
+                                                                    } ?>"
+                                            href="<?= root ?>cars"><?= T::cars ?></a></li>
+                            <?php }
+                            } ?>
 
-                        <?php if (isset($module->type)){ if ($module->type == "visa"){ ?>
-                        <li> <a class="nav-link fadeout <?php if(isset($meta['nav_menu'])){ if ($meta['nav_menu']=="visa"){ echo "active";} } ?>"
-                                href="<?=root?>visa"><?=T::visa?></a></li>
-                        <?php } } ?>
+                            <?php if (isset($module->type)) {
+                                if ($module->type == "visa") { ?>
+                                    <li> <a class="nav-link fadeout <?php if (isset($meta['nav_menu'])) {
+                                                                        if ($meta['nav_menu'] == "visa") {
+                                                                            echo "active";
+                                                                        }
+                                                                    } ?>"
+                                            href="<?= root ?>visa"><?= T::visa ?></a></li>
+                            <?php }
+                            } ?>
 
-                            <?php if (isset($module->type)){ if ($module->type == "extra"){ ?>
-                                <li> <a class="nav-link fadeout <?php if(isset($meta['nav_menu'])){ if ($meta['nav_menu']=="Blog"){ echo "active";} } ?>"
-                                        href="<?=root?>blogs"><?=T::blog?></a></li>
-                            <?php } } ?>
+                            <?php if (isset($module->type)) {
+                                if ($module->type == "extra") { ?>
+                                    <li> <a class="nav-link fadeout <?php if (isset($meta['nav_menu'])) {
+                                                                        if ($meta['nav_menu'] == "Blog") {
+                                                                            echo "active";
+                                                                        }
+                                                                    } ?>"
+                                            href="<?= root ?>blogs"><?= T::blog ?></a></li>
+                            <?php }
+                            } ?>
                         <?php } ?>
 
                     </ul>
 
                 </div>
-                
+
                 <!-- right  -->
                 <div class="nav-item--right" role="search">
                     <ul class="navbar-nav gap-2 me-auto mb-2 mb-lg-0">
 
-                        <?php if (app()->app->multi_language == 1) {?>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle btn ps-3 p-0 py-2 px-0 text-center d-flex align-items-center justify-content-center gap-0"
-                                href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?php if (app()->app->multi_language == 1) { ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle btn ps-3 p-0 py-2 px-0 text-center d-flex align-items-center justify-content-center gap-0"
+                                    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
-                                <?php if (!isset($_SESSION['phptravels_client_language_country'])) { ?>
-                                <img class="mx-2" style="width:18px"
-                                    src="<?=root?>assets/img/flags/<?php foreach (app()->languages as $lang){ if($lang->default == 1){ echo strtolower($lang->country_id); } }?>.svg"
-                                    alt="flag">
-                                <?php } else {?>
-                                <img class="mx-2" style="width:18px"
-                                    src="<?=root?>assets/img/flags/<?=$_SESSION['phptravels_client_language_country']?>.svg"
-                                    alt="flag">
-                                <?php } ?>
-
-                                <strong class="h6 m-0 header_options">
-                                    <?php if (!isset($_SESSION['phptravels_client_language_name'])) { ?>
-                                    <?php foreach (app()->languages as $lang){ if($lang->default == 1){ echo $lang->name; $def_language = $lang->name; } }?>
-                                    <?php } else {?>
-                                    <?=$_SESSION['phptravels_client_language_name']?>
-                                    <?php } ?>
-                                </strong>
-                                <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                    viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M6 9l6 6 6-6" />
-                                </svg>
-                            </a>
-                            <ul class="dropdown-menu rounded-1">
-                                <?php foreach(app()->languages as $lang){ ?>
-                                <li><a class="dropdown-item d-flex gap-3 fadeout"
-                                        href="<?=root?>language/<?=strtolower($lang->country_id)?>/<?=$lang->name?>/<?=$lang->type?>">
-                                        <img style="width:18px"
-                                             src="<?=root?>assets/img/flags/<?=strtolower($lang->country_id)?>.svg"
-                                             alt="flag"> </i><span><?=$lang->name?></span></a></li>
-                                <?php } ?>
-                            </ul>
-                        </li>
-                        <?php } ?>
-
-                        <?php if (app()->app->multi_currency == 1) {?>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle btn px-0 ps-3 text-center d-flex align-items-center justify-content-center gap-1"
-                                href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <strong class="h6 m-0 header_options">
-                                    <?php if (!isset($_SESSION['phptravels_client_currency'])) { ?>
-                                    <?php foreach (app()->currencies as $currency){ if($currency->default == 1){ echo $currency->name; } }?>
-                                    <?php } else {?>
-                                    <?=$_SESSION['phptravels_client_currency']?>
-                                    <?php } ?>
-                                </strong>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                    fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path d="M6 9l6 6 6-6" />
-                                </svg>
-                            </a>
-                            <ul class="dropdown-menu rounded-1">
-                            <?php
-                            foreach (app()->currencies as $currency) { { ?>
-                                <li><a class="dropdown-item fadeout" href="<?=root?>currency/<?=$currency->name?>">
+                                    <?php if (!isset($_SESSION['phptravels_client_language_country'])) { ?>
                                         <img class="mx-2" style="width:18px"
-                                            src="<?=root?>assets/img/flags/<?=strtolower($currency->iso)?>.svg"
+                                            src="<?= root ?>assets/img/flags/<?php foreach (app()->languages as $lang) {
+                                                                                    if ($lang->default == 1) {
+                                                                                        echo strtolower($lang->country_id);
+                                                                                    }
+                                                                                } ?>.svg"
                                             alt="flag">
-                                        <span><strong><?=$currency->name?></strong></span>
-                                        <span class="mx-2">-</span> <small><?=$currency->nicename?></small>
-                                    </a></li>
-                                <?php } } ?>
-                            </ul>
-                        </li>
+                                    <?php } else { ?>
+                                        <img class="mx-2" style="width:18px"
+                                            src="<?= root ?>assets/img/flags/<?= $_SESSION['phptravels_client_language_country'] ?>.svg"
+                                            alt="flag">
+                                    <?php } ?>
+
+                                    <strong class="h6 m-0 header_options">
+                                        <?php if (!isset($_SESSION['phptravels_client_language_name'])) { ?>
+                                            <?php foreach (app()->languages as $lang) {
+                                                if ($lang->default == 1) {
+                                                    echo $lang->name;
+                                                    $def_language = $lang->name;
+                                                }
+                                            } ?>
+                                        <?php } else { ?>
+                                            <?= $_SESSION['phptravels_client_language_name'] ?>
+                                        <?php } ?>
+                                    </strong>
+                                    <svg class="mx-1" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                        viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M6 9l6 6 6-6" />
+                                    </svg>
+                                </a>
+                                <ul class="dropdown-menu rounded-1">
+                                    <?php foreach (app()->languages as $lang) { ?>
+                                        <li><a class="dropdown-item d-flex gap-3 fadeout"
+                                                href="<?= root ?>language/<?= strtolower($lang->country_id) ?>/<?= $lang->name ?>/<?= $lang->type ?>">
+                                                <img style="width:18px"
+                                                    src="<?= root ?>assets/img/flags/<?= strtolower($lang->country_id) ?>.svg"
+                                                    alt="flag"> </i><span><?= $lang->name ?></span></a></li>
+                                    <?php } ?>
+                                </ul>
+                            </li>
                         <?php } ?>
 
-                        <?php if (app()->app->user_registration == 1) {?>
-                        <li class="nav-item dropdown">
-                            <a class="bg-light nav-link dropdown-toggle btn btn-outline-secondary px-0 ps-3 text-center d-flex align-items-center justify-content-center gap-2 border-0"
-                                href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?php if (app()->app->multi_currency == 1) { ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle btn px-0 ps-3 text-center d-flex align-items-center justify-content-center gap-1"
+                                    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <strong class="h6 m-0 header_options">
+                                        <?php if (!isset($_SESSION['phptravels_client_currency'])) { ?>
+                                            <?php foreach (app()->currencies as $currency) {
+                                                if ($currency->default == 1) {
+                                                    echo $currency->name;
+                                                }
+                                            } ?>
+                                        <?php } else { ?>
+                                            <?= $_SESSION['phptravels_client_currency'] ?>
+                                        <?php } ?>
+                                    </strong>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                        fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M6 9l6 6 6-6" />
+                                    </svg>
+                                </a>
+                                <ul class="dropdown-menu rounded-1">
+                                    <?php
+                                    foreach (app()->currencies as $currency) { { ?>
+                                            <li><a class="dropdown-item fadeout" href="<?= root ?>currency/<?= $currency->name ?>">
+                                                    <img class="mx-2" style="width:18px"
+                                                        src="<?= root ?>assets/img/flags/<?= strtolower($currency->iso) ?>.svg"
+                                                        alt="flag">
+                                                    <span><strong><?= $currency->name ?></strong></span>
+                                                    <span class="mx-2">-</span> <small><?= $currency->nicename ?></small>
+                                                </a></li>
+                                    <?php }
+                                    } ?>
+                                </ul>
+                            </li>
+                        <?php } ?>
 
-                                <svg stroke="#000" class="pe-1" xmlns="http://www.w3.org/2000/svg" width="20"
-                                    height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
+                        <?php if (app()->app->user_registration == 1) { ?>
+                            <li class="nav-item dropdown">
+                                <a class="bg-light nav-link dropdown-toggle btn btn-outline-secondary px-0 ps-3 text-center d-flex align-items-center justify-content-center gap-2 border-0"
+                                    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
-                                <strong class="m-0 text-dark">
-                                    <?=T::account?>
-                                </strong>
+                                    <svg stroke="#000" class="pe-1" xmlns="http://www.w3.org/2000/svg" width="20"
+                                        height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
 
-                                <svg stroke="#000" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                    viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M6 9l6 6 6-6" />
-                                </svg>
+                                    <strong class="m-0 text-dark">
+                                        <?= T::account ?>
+                                    </strong>
 
-                            </a>
+                                    <svg stroke="#000" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                        viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M6 9l6 6 6-6" />
+                                    </svg>
 
-                            <?php if(!isset($_SESSION['phptravels_client']->user_id)) { ?>
-                            <ul class="dropdown-menu bg-white rounded-2">
-                                <li><a class="dropdown-item fadeout" href="<?=root?>login"> <?=T::login?> </i></a></li>
-                                <li><a class="dropdown-item fadeout" href="<?=root?>signup"> <?=T::signup?> </i></a></li>
-                            </ul>
-                            <?php } ?>
+                                </a>
 
-                            <?php if(isset($_SESSION['phptravels_client']->user_id)) { ?>
-                            <ul class="dropdown-menu bg-white rounded-4">
-                                <li><a class="dropdown-item fadeout" href="<?=root?>dashboard"> <?=T::dashboard?></i></a></li>
-                                <li><a class="dropdown-item fadeout" href="<?=root?>bookings"> <?=T::bookings?></i></a></li>
-                                <li><a class="dropdown-item fadeout" href="<?=root?>wallet"> <?=T::wallet?></i></a></li>
-                                <li><a class="dropdown-item fadeout" href="<?=root?>profile"> <?=T::profile?></i></a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item fadeout" href="<?=root?>logout"> <?=T::logout?></i></a></li>
-                            </ul>
-                            <?php } ?>
+                                <?php if (!isset($_SESSION['phptravels_client']->user_id)) { ?>
+                                    <ul class="dropdown-menu bg-white rounded-2">
+                                        <li><a class="dropdown-item fadeout" href="<?= root ?>login"> <?= T::login ?> </i></a></li>
+                                        <li><a class="dropdown-item fadeout" href="<?= root ?>signup"> <?= T::signup ?> </i></a></li>
+                                    </ul>
+                                <?php } ?>
 
-                        </li>
+                                <?php if (isset($_SESSION['phptravels_client']->user_id)) { ?>
+                                    <ul class="dropdown-menu bg-white rounded-4">
+                                        <li><a class="dropdown-item fadeout" href="<?= root ?>dashboard"> <?= T::dashboard ?></i></a></li>
+                                        <li><a class="dropdown-item fadeout" href="<?= root ?>bookings"> <?= T::bookings ?></i></a></li>
+                                        <li><a class="dropdown-item fadeout" href="<?= root ?>wallet"> <?= T::wallet ?></i></a></li>
+                                        <li><a class="dropdown-item fadeout" href="<?= root ?>profile"> <?= T::profile ?></i></a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item fadeout" href="<?= root ?>logout"> <?= T::logout ?></i></a></li>
+                                    </ul>
+                                <?php } ?>
+
+                            </li>
                         <?php } ?>
 
                     </ul>
                 </div>
-                
+
             </div>
             <!-- nav items end  -->
         </div>
@@ -263,54 +329,56 @@ require_once "App/Views/DemoContent.php";
 
 
     <script>
-    
-    // HEADER NAVBAR
-    let resize = true;
-    $(window).scroll(function() {
-        var nav = $('#navbarMain');
-        var top = 50;
-        if ($(window).scrollTop() >= top && resize) {
-            $("header").addClass('swap_navbar');
-        } else if(resize) {
-            $("header").removeClass('swap_navbar');
-        }        
-    });
+        // HEADER NAVBAR
+        let resize = true;
+        $(window).scroll(function() {
+            var nav = $('#navbarMain');
+            var top = 50;
+            if ($(window).scrollTop() >= top && resize) {
+                $("header").addClass('swap_navbar');
+            } else if (resize) {
+                $("header").removeClass('swap_navbar');
+            }
+        });
 
-    $(window).on("load", (function() {
-        if($(window).innerWidth() + 10 < 769) {
-            $("header").addClass('swap_navbar');
-            resize = false;
-        }
-        else {
-            $("header").removeClass('swap_navbar');
-            resize = true;
-        }
-    }));
+        $(window).on("load", (function() {
+            if ($(window).innerWidth() + 10 < 769) {
+                $("header").addClass('swap_navbar');
+                resize = false;
+            } else {
+                $("header").removeClass('swap_navbar');
+                resize = true;
+            }
+        }));
 
-    $(window).on("load", (function() {
-    var scroll = $(window).scrollTop();
-    if (scroll > 20 ) {
-        $("header").addClass('swap_navbar');
-    }
-    }) )
-
+        $(window).on("load", (function() {
+            var scroll = $(window).scrollTop();
+            if (scroll > 20) {
+                $("header").addClass('swap_navbar');
+            }
+        }))
     </script>
 
     <script>
-    // ger users country
-    var requestUrl = "<?=root?>visitor_details";
-    fetch(requestUrl)
-    .then(function(response) { return response.json(); })
-    .then(function(c) { var user_country = c['country_name']; 
-    
-    // console.log("Visitor Country :"+ " "+ user_country);
+        // ger users country
+        var requestUrl = "<?= root ?>visitor_details";
+        fetch(requestUrl)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(c) {
+                var user_country = c['country_name'];
 
-    // submit to db
-    var req = '<?=root.api_url?>traffic?country=' + user_country; fetch(req) });
+                // console.log("Visitor Country :"+ " "+ user_country);
+
+                // submit to db
+                var req = '<?= root . api_url ?>traffic?country=' + user_country;
+                fetch(req)
+            });
     </script>
 
-<!-- PLAN ANIMATION -->
-<!-- <div id="splash">
+    <!-- PLAN ANIMATION -->
+    <!-- <div id="splash">
   <div class="anim">
     <div id="loader">
       <svg version="1.1" width="60px" height="70px" viewBox="0 0 60 70">

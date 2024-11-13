@@ -15,7 +15,7 @@
                   <circle class="st0" cx="356.538" cy="489.119" r="22.881" />
                </g>
             </svg>
-            <strong><?=T::tours_findbesttours?></strong>
+            <strong><?= T::tours_findbesttours ?></strong>
          </h5>
          <br>
          <div style="padding:50px 20" id="fadein">

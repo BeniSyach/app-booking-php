@@ -31,7 +31,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'User Login';
         $push_data['message2'] = 'User logged in with email ' . $user_data->email;
         $pusher->trigger($channel, 'event', $push_data);
-
     }
 
     // ==================================================================== ACCOUNT ACTIVATION
@@ -49,7 +48,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'Account';
         $push_data['message2'] = 'activated for user ' . $user[0]['email'];
         $pusher->trigger($channel, 'event', $push_data);
-
     }
 
     // ==================================================================== PASSWORD RESET
@@ -67,7 +65,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'Password';
         $push_data['message2'] = 'reset for account ' . $user[0]['email'];
         $pusher->trigger($channel, 'event', $push_data);
-
     }
 
     // ==================================================================== USER SIGNUP
@@ -85,7 +82,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'Signup';
         $push_data['message2'] = 'account created for ' . $_POST['email'];
         $pusher->trigger($channel, 'event', $push_data);
-
     }
 
     // ==================================================================== FLIGHTS BOOKING
@@ -103,7 +99,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'Flight';
         $push_data['message2'] = 'booking invoice ' . $data->booking_ref_no;
         $pusher->trigger($channel, 'event', $push_data);
-
     }
 
     // ==================================================================== FLIGHTS UPDATE BOOKING
@@ -121,7 +116,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'Flight';
         $push_data['message2'] = 'invoice updated ' . $data[0]['booking_ref_no'];
         $pusher->trigger($channel, 'event', $push_data);
-
     }
 
     // ==================================================================== FLIGHTS CANCELLATION REQUEST
@@ -139,7 +133,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'Cancellation';
         $push_data['message2'] = 'flight Requested for invoice ' . $_POST['booking_ref_no'];
         $pusher->trigger($channel, 'event', $push_data);
-
     }
     // ==================================================================== HOTELS BOOKING
     if ($hook == "hotels_booking") {
@@ -156,7 +149,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'Hotel';
         $push_data['message2'] = 'booking invoice ' . $data->booking_ref_no;
         $pusher->trigger($channel, 'event', $push_data);
-
     }
 
     // ==================================================================== HOTELS UPDATE BOOKING
@@ -174,7 +166,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'Hotel';
         $push_data['message2'] = 'invoice updated ' . $data[0]['booking_ref_no'];
         $pusher->trigger($channel, 'event', $push_data);
-
     }
 
     // ==================================================================== HOTELS CANCELLATION REQUEST
@@ -192,7 +183,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'Cancellation';
         $push_data['message2'] = 'hotel Requested for invoice ' . $_POST['booking_ref_no'];
         $pusher->trigger($channel, 'event', $push_data);
-
     }
     // ==================================================================== TOURS BOOKING
     if ($hook == "tours_booking") {
@@ -209,7 +199,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'Tour';
         $push_data['message2'] = 'booking invoice ' . $data->booking_ref_no;
         $pusher->trigger($channel, 'event', $push_data);
-
     }
 
     // ==================================================================== TOURS UPDATE BOOKING
@@ -227,7 +216,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'Tour';
         $push_data['message2'] = 'invoice updated ' . $data[0]['booking_ref_no'];
         $pusher->trigger($channel, 'event', $push_data);
-
     }
 
     // ==================================================================== TOURS CANCELLATION REQUEST
@@ -245,10 +233,9 @@ if (isset($hook)) {
         $push_data['message1'] = 'Cancellation';
         $push_data['message2'] = 'tour Requested for invoice ' . $_POST['booking_ref_no'];
         $pusher->trigger($channel, 'event', $push_data);
-
     }
-     // ==================================================================== CARS BOOKING
-     if ($hook == "cars_booking") {
+    // ==================================================================== CARS BOOKING
+    if ($hook == "cars_booking") {
 
         // SEND EMAIL
         $title = "cars Booked";
@@ -262,7 +249,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'car';
         $push_data['message2'] = 'booking invoice ' . $data->booking_ref_no;
         $pusher->trigger($channel, 'event', $push_data);
-
     }
 
     // ==================================================================== CARS UPDATE BOOKING
@@ -280,7 +266,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'car';
         $push_data['message2'] = 'invoice updated ' . $data[0]['booking_ref_no'];
         $pusher->trigger($channel, 'event', $push_data);
-
     }
 
     // ==================================================================== CARS CANCELLATION REQUEST
@@ -298,7 +283,6 @@ if (isset($hook)) {
         $push_data['message1'] = 'Cancellation';
         $push_data['message2'] = 'car Requested for invoice ' . $_POST['booking_ref_no'];
         $pusher->trigger($channel, 'event', $push_data);
-
     }
 
     // ==================================================================== CARS CANCELLATION REQUEST
@@ -311,8 +295,5 @@ if (isset($hook)) {
         $receiver_email = ($email);
         $receiver_name = ($name);
         MAILER($template, $title, $content, $receiver_email, $receiver_name);
-
     }
-
 }
-?>

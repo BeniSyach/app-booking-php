@@ -81,8 +81,8 @@ THIS FUNCTION RETRIEVES A LIST OF ALL ACTIVE HOTEL MODULES
 function gettoursmodules()
 {
     $conn = openconn(); // Open a connection to the database.
-// Select all modules of type 'hotels' from the database
-    $respose = $conn->select("modules", ['id', 'name','module_color'], ["type" => 'tours', 'status' => 1]);
+    // Select all modules of type 'hotels' from the database
+    $respose = $conn->select("modules", ['id', 'name', 'module_color'], ["type" => 'tours', 'status' => 1]);
     // Create an empty array to store the module data
     $data = [];
     // Loop through the results and add any active modules (excluding the 'flights' module itself)
@@ -195,7 +195,7 @@ $router->post('tours/search', function () {
     );
 
     //GET THE MODULE ID
-    $module_id = $db->select('modules', ['id','module_color'], ['name' => 'tours', 'type' => 'tours', 'status' => 1]);
+    $module_id = $db->select('modules', ['id', 'module_color'], ['name' => 'tours', 'type' => 'tours', 'status' => 1]);
 
     //CHECKS IF THE MODULE IS ACTIVE AND FETCH THE RESULT OF SEARCHED TOURS ACCORDING TO PARAMS
     if (!empty($module_id[0]['id'])) {
@@ -210,20 +210,20 @@ $router->post('tours/search', function () {
 
                 //PRICE CALCULATION ON THE BASE OF ADULTS AND CHILDS
                 $price = ($params['adults'] * $value['tour_adult_price']) + ($params['childs'] * $value['tour_child_price']);
-                
+
                 //PRICE CONVERSION
                 $con_price = price_con($price, $params['currency']);
-                $country = $db->select('locations',['country'],['city' => $value['location']]);
+                $country = $db->select('locations', ['country'], ['city' => $value['location']]);
 
                 //MARKUP PRICES
                 $markup = toursmarkup($module_id[0]['id'], $con_price, $params['date'], $loc_code[0]['id']);
-                $markup_price = ($markup['b2c'] != 0 ) ? $markup['b2c'] : $markup['b2c'] ;
+                $markup_price = ($markup['b2c'] != 0) ? $markup['b2c'] : $markup['b2c'];
                 if ($con_price != null) {
                     $manual_response[] = (object) [
                         'tour_id' => $value['id'],
                         'name' => $value['name'],
-                        'location' => $value['location'].",".$country[0]['country'],
-                        'img' => root."../uploads/".$value['img'],
+                        'location' => $value['location'] . "," . $country[0]['country'],
+                        'img' => root . "../uploads/" . $value['img'],
                         'desc' => $value['desc'],
                         'price' => number_format((float) $markup_price, 2, '.', ''),
                         'actual_price' => number_format((float) $con_price, 2, '.', ''),
@@ -246,8 +246,8 @@ $router->post('tours/search', function () {
         $manual_response = [];
     }
 
-    $data_tours =[];
-    $array_count =[];
+    $data_tours = [];
+    $array_count = [];
     $Multithreadingtours = gettoursmodules();
     if (!empty($Multithreadingtours)) {
         foreach ($Multithreadingtours as $value) {
@@ -298,13 +298,13 @@ $router->post('tours/search', function () {
 
                     //MARKUP PRICES
                     $markup = toursmarkup($module_id, $con_price, $_POST['date'], $loc_code[0]['id']);
-                    $markup_price = ($markup['b2c'] != 0 ) ? $markup['b2c'] : $markup['b2c'] ;
+                    $markup_price = ($markup['b2c'] != 0) ? $markup['b2c'] : $markup['b2c'];
 
                     $data_tours[] = (object)[
                         'tour_id' => $val->tour_id,
                         'name' =>  $val->name,
                         'location' =>  $val->location,
-                        'img' =>  root."uploads/".$val->img,
+                        'img' =>  root . "uploads/" . $val->img,
                         'desc' =>  $val->desc,
                         'price' => number_format((float)$markup_price, 2, '.', ''),
                         'actual_price' => number_format((float)$con_price, 2, '.', ''),
@@ -322,20 +322,19 @@ $router->post('tours/search', function () {
                     ];
                 }
             }
-    }
+        }
     }
 
     if (!empty($manual_response) && !empty($data_tours)) {
         $data = array_merge($manual_response, $data_tours);
     } elseif (!empty($manual_response)) {
-        $data = ['status'=>true,'response'=>$manual_response,'total'=>0];
+        $data = ['status' => true, 'response' => $manual_response, 'total' => 0];
     } elseif (!empty($data_tours)) {
-        $data = ['status'=>true,'response'=>$data_tours,'total'=>max($array_count)];
+        $data = ['status' => true, 'response' => $data_tours, 'total' => max($array_count)];
     } else {
         $data = [];
     }
     echo json_encode($data);
-
 });
 
 /*==================
@@ -378,10 +377,10 @@ $router->post('tour/details', function () {
                 $tour_imgs[] = $value['img'];
             }
         }
-        array_unshift($tour_imgs,$tour[0]['img']);
+        array_unshift($tour_imgs, $tour[0]['img']);
 
         //EXCLUSION
-        $exclusions =[] ;
+        $exclusions = [];
         $exc_id = $db->select('tours_exclusions_rel', ['exclusions_id'], ['tour_id' => $tour[0]['id']]);
         if (!empty($exc_id)) {
             foreach ($exc_id as $value) {
@@ -390,7 +389,7 @@ $router->post('tour/details', function () {
             }
         }
         //INCLUSION
-        $inclusions =[] ;
+        $inclusions = [];
         $inc_id = $db->select('tours_inclusions_rel', ['inclusions_id'], ['tour_id' => $tour[0]['id']]);
         if (!empty($inc_id)) {
             foreach ($inc_id as $value) {
@@ -398,9 +397,9 @@ $router->post('tour/details', function () {
                 $inclusions[] = $inc[0]['name'];
             }
         }
-        $tour_itinerary = $db->select('tours_itinerary',['itinerary'],['tour_id' => $params['tour_id'], 'ORDER' => ['itinerary' => 'ASC']]);
+        $tour_itinerary = $db->select('tours_itinerary', ['itinerary'], ['tour_id' => $params['tour_id'], 'ORDER' => ['itinerary' => 'ASC']]);
         $tours_itinerary = [];
-        if(!is_null($tour_itinerary)) {
+        if (!is_null($tour_itinerary)) {
             foreach ($tour_itinerary as $key => $value) {
                 $tours_itinerary[] = $value['itinerary'];
             }
@@ -409,7 +408,7 @@ $router->post('tour/details', function () {
         $price = ($params['adults'] * $tour[0]['tour_adult_price']) + ($params['childs'] * $tour[0]['tour_child_price']);
 
         // PRICES CONVERSIONS
-        $con_price = ($price) ? price_con( $price, $params['currency']) : 0;
+        $con_price = ($price) ? price_con($price, $params['currency']) : 0;
         $con_adult_price = ($tour[0]['tour_adult_price']) ? price_con($tour[0]['tour_adult_price'], $params['currency']) : 0;
         $con_child_price = ($tour[0]['tour_child_price']) ? price_con($tour[0]['tour_child_price'], $params['currency']) : 0;
         $con_infant_price = ($tour[0]['tour_infant_price']) ? price_con($tour[0]['tour_infant_price'], $params['currency']) : 0;
@@ -417,11 +416,11 @@ $router->post('tour/details', function () {
         //MARKUP PRICES
         $loc_code = $db->select('locations', ['id'], ['city' => $tour[0]['location']]); //GETS THE LOCATION_ID FROM DATABASE FOR MARKUPS
         $markup = toursmarkup($module_id[0]['id'], $con_price, $params['date'], $loc_code[0]['id']);
-        
+
         $adult_markup_price = toursmarkup($module_id[0]['id'], $con_adult_price, $params['date'], $loc_code[0]['id']);
         $child_markup_price = toursmarkup($module_id[0]['id'], $con_child_price, $params['date'], $loc_code[0]['id']);
         $infant_markup_price = toursmarkup($module_id[0]['id'], $con_infant_price, $params['date'], $loc_code[0]['id']);
-        $price_markup = ($markup['b2c'] != 0) ? $markup['b2c'] :$markup['b2b'] ; //CHECKS WHICH MARKUP PRICE IS AVAIABLE
+        $price_markup = ($markup['b2c'] != 0) ? $markup['b2c'] : $markup['b2b']; //CHECKS WHICH MARKUP PRICE IS AVAIABLE
 
         $response = [
             'tour_id' => $tour[0]['id'],
@@ -482,7 +481,7 @@ $router->post('tours/booking', function () {
     $param = array(
         "booking_ref_no" => date('Ymdhis'),
         "booking_date" => date("Y-m-d"),
-        "payment_status" =>'unpaid',
+        "payment_status" => 'unpaid',
         "booking_status" => 'pending',
         "payment_gateway" => $_POST['payment_gateway'],
         "first_name" => $_POST['first_name'],
@@ -518,8 +517,8 @@ $router->post('tours/booking', function () {
     $data = (json_decode($_POST["user_data"]));
     $data = (object) array_merge((array) $data, array('booking_ref_no' => $param['booking_ref_no']));
     // HOOK 
-    $hook = "tours_booking";
-    include "./hooks.php";
+    // $hook = "tours_booking";
+    // include "./hooks.php";
     echo json_encode(array('status' => true, 'id' => $db->id(), 'booking_ref_no' => $param['booking_ref_no']));
 });
 
@@ -581,11 +580,11 @@ $router->post('tours/booking_update', function () {
             'payment_gateway' => $params['payment_gateway'],
             'payment_date' => date('Y-m-d'),
         ], [
-                "booking_ref_no" => $booking_ref_no
-            ]);
+            "booking_ref_no" => $booking_ref_no
+        ]);
 
         $data = $db->select("tours_bookings", '*', ["booking_ref_no" => $booking_ref_no]); // SELECT THE UPDATED BOOKING DATA FROM DATABASE ACCORDING TO BOOKING REFERENCE NUMBER
-        
+
         //INSERT THE TRANSACTION INFO IN TRANSACTION TABLE IN DATABASE
         if ($data[0]['payment_status'] == 'paid') {
             $transaction_entry = $db->insert("transactions", [
@@ -623,7 +622,7 @@ $router->post('tours/cancellation', function () {
     required('booking_ref_no');
     $booking_ref_no = $_POST["booking_ref_no"];
 
-    $params = array('cancellation_request' => 1, );
+    $params = array('cancellation_request' => 1,);
     $data = $db->update("tours_bookings", $params, ["booking_ref_no" => $booking_ref_no]); //UPDATE THE CANCELATION STATUS IN DATABASE IF REQUEST IS MADE
 
     $booking = $db->select("tours_bookings", '*', ["booking_ref_no" => $booking_ref_no]);
@@ -634,7 +633,4 @@ $router->post('tours/cancellation', function () {
     include "./hooks.php";
 
     echo json_encode(array('status' => true, 'message' => 'request received successfully'));
-
 });
-
-?>
